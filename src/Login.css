@@ -43,3 +43,20 @@
     text-align: left;
     margin: 3px;
 }
+
+.Login-invalid {
+    display: block;
+    width: 95%;
+    margin: auto;
+    margin-bottom: 10px;
+    color: black;
+    background-color: red;
+    font-weight: bold;
+    text-decoration: none;
+    border-color: darkred;
+    border-style: solid;
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center;
+    margin-top: 10px;
+}

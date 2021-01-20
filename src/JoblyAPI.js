@@ -107,10 +107,15 @@ class JoblyApi {
   /** Login */
 
   static async login({ username, password }) {
-    const res = await this.request('auth/token', { username: username, password: password }, 'post');
-    this.token = res.token;
-    const userRes = await this.request(`users/${username}`);
-    this.loggedInUser = userRes.user;
+    try {
+      const res = await this.request('auth/token', { username: username, password: password }, 'post');
+      this.token = res.token;
+      const userRes = await this.request(`users/${username}`);
+      this.loggedInUser = userRes.user;
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   /** Logout */

@@ -9,6 +9,7 @@ const Login = ({ setToken }) => {
         username: '',
         password: ''
     });
+    const [invalid, setInvalid] = useState(false);
 
     function handleChange(evt) {
         const field = evt.target.name;
@@ -20,15 +21,24 @@ const Login = ({ setToken }) => {
 
     function handleSubmit(evt) {
         evt.preventDefault();
-        JoblyApi.login(formData).then(() => {
-            setToken('token', JoblyApi.token);
-            history.push('/');
+        JoblyApi.login(formData).then((res) => {
+            if (res) {
+                setToken('token', JoblyApi.token);
+                setInvalid(false);
+                history.push('/');
+            } else {
+                const newFormData = { ...formData };
+                newFormData.password = '';
+                setFormData(newFormData);
+                setInvalid(true);
+            }
         });
     }
 
     return (
         <div className="Login">
             <h2 className="Login-header">Log In</h2>
+            {invalid ? <p className="Login-invalid">Invalid username/password!</p> : null}
             <form onSubmit={handleSubmit}>
                 <div className="Login-field">
                     <label htmlFor="username">Username:</label>
